@@ -89,7 +89,11 @@ NewPasswords::
 	; 16 -> 58913? I wonder what could this mean...
 	; this is a joke, password can be whatever
 	db 1, 6, 0, 5, 8, 9, 1, 3
-	db 1
+	db 1 ; corresponds to first entry
+	db 0, 0, 0, 0, 0, 0, 0, 1
+	db 2 ; corresponds to second entry, pattern should be easy to follow
+	db 0, 0, 0, 0, 0, 0, 0, 2
+	db 3
 	db $ff ; terminator
 
 SECTION "New Pokemon Source", ROMX[$7bad], BANK[$13]
@@ -106,6 +110,7 @@ SECTION "New Pokemon Source", ROMX[$7bad], BANK[$13]
 ; \1Happiness:: db
 ; \1Level::     db
 NewPokemonSource::
+; first entry
 	db DONPHAN ; species
 	
 	db BERSERK_GENE ; item
@@ -119,10 +124,54 @@ NewPokemonSource::
 	; dvs
 	dn 15, 10, 10, 10
 	
-	; pp
+	; pp (irrelevant)
 	db 4, 20, 6, 9
 
 	; happiness
 	db 255
 	; level
 	db 60
+
+; second entry
+	db BULBASAUR ; species
+
+	db MASTER_BALL ; item
+
+	; moves
+	db POUND
+	db POUND
+	db POUND
+	db POUND
+
+	; dvs
+	dn 1, 1, 1, 1
+
+	; pp (irrelevant)
+	db 1, 1, 1, 1
+
+	; happiness
+	db 1
+	; level
+	db 1
+; third entry
+; ultimate(-ish) HM slave
+	db MEW ; species
+
+	db NO_ITEM ; item
+
+	; moves
+	db FLY
+	db SURF
+	db STRENGTH
+	db CUT
+
+	; dvs
+	dn 15, 15, 15, 15
+
+	; pp (irrelevant)
+	db 255, 255, 255, 255
+
+	; happiness
+	db 255
+	; level
+	db 100
