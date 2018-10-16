@@ -4,7 +4,7 @@ RGBLINK := rgblink
 RGBFIX := rgbfix
 
 ROM := crystal_clear_modified.gbc
-BASEROM := baserom.gb
+BASEROM := i_made_this.gbc
 
 OBJS := main.o
 
@@ -13,7 +13,7 @@ OBJS := main.o
 all: $(ROM)
 
 $(ROM): $(OBJS) | $(BASEROM)
-	$(RGBLINK) -d -n $(@:.gb=.sym) -O $(BASEROM) -o $@ $^
+	$(RGBLINK) -d -n $(@:.gbc=.sym) -O $(BASEROM) -o $@ $<
 
 %.o: %.asm
 	$(RGBASM) -o $@ $<

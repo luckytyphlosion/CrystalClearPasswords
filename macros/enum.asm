@@ -49,3 +49,11 @@ if !DEF(\1)
 \1 EQUS \2
 endc
 ENDM
+
+dn: MACRO ; nybbles
+rept _NARG / 2
+	db ((\1) << 4) | (\2)
+	shift
+	shift
+endr
+ENDM
