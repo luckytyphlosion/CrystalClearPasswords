@@ -108,16 +108,21 @@ SECTION "New Pokemon Source", ROMX[$7bad], BANK[$13]
 NewPokemonSource::
 	db DONPHAN ; species
 	
-	db BERSERK_GENE ; 
+	db BERSERK_GENE ; item
 	
+	; moves
 	db DOUBLE_EDGE
 	db EARTHQUAKE
 	db REST
 	db SLEEP_TALK
 	
+	; dvs
 	dn 15, 10, 10, 10
 	
+	; pp
 	db 4, 20, 6, 9
-	db 255
-	db 60
 
+	; happiness
+	db 255
+	; level
+	db 60
