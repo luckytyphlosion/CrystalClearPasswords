@@ -275,4 +275,15 @@ SECTION "Patch Dummied Gold Trophy Jump", ROMX[$6ed8], BANK[$9]
 SECTION "Patch Dummied Silver Trophy Jump", ROMX[$6f03], BANK[$9]
 	dw @ + 2 ; jump 2 ahead to actual trophy winner code
 
+; Let's add instant saving, because why not?
+SECTION "Skip SavingDontTurnOffThePower", ROMX[$4d6e], BANK[$5]
+	ret ; dummies out "SAVING.. DON'T TURN OFF THE POWER" message
 
+SECTION "Skip _SavingDontTurnOffThePower Delay 1", ROMX[$4cbb], BANK[$5]
+	jr $4cc9 ; skips delay and med text speed prologue
+
+SECTION "Skip _SavingDontTurnOffThePower Delay 2", ROMX[$4ccf], BANK[$5]
+	jr $4cd3 ; skip med text speed epilogue
+
+SECTION "Skip _SavingDontTurnOffThePower Delay 3", ROMX[$4cdc], BANK[$5]
+	ret ; skip 30 frame wait after save SFX
