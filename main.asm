@@ -4,6 +4,7 @@ INCLUDE "constants/move_constants.asm"
 INCLUDE "constants/pokemon_constants.asm"
 
 wOptions EQU $cfcc
+hBGMapThird EQU $ffd5
 
 SECTION "Fix Instant Text Hook", ROM0[$3190]
 	jp FixInstantTextHook
@@ -22,6 +23,8 @@ FixInstantTextHook::
 	push hl
 	push de
 	push bc
+	ld a, 2
+	ld [hBGMapThird], a
 	jp FixInstantTextHookReturn
 
 SECTION "Fix Default Text Speed", ROMX[$4fc4], BANK[$5]
@@ -90,10 +93,16 @@ NewPasswords::
 	; this is a joke, password can be whatever
 	db 1, 6, 0, 5, 8, 9, 1, 3
 	db 1 ; corresponds to first entry
-	db 0, 0, 0, 0, 0, 0, 0, 1
+	db 0, 4, 0, 3, 2, 9, 5, 6
 	db 2 ; corresponds to second entry, pattern should be easy to follow
-	db 0, 0, 0, 0, 0, 0, 0, 2
+	db 2, 0, 1, 8, 1, 0, 0, 5
 	db 3
+	db 0, 0, 1, 8, 3, 9, 5, 4
+	db 4
+	db 0, 2, 3, 5, 0, 8, 1, 7
+	db 5
+	db 0, 0, 1, 3, 5, 9, 0, 0
+	db 6
 	db $ff ; terminator
 
 SECTION "New Pokemon Source", ROMX[$7bad], BANK[$13]
@@ -111,64 +120,129 @@ SECTION "New Pokemon Source", ROMX[$7bad], BANK[$13]
 ; \1Level::     db
 NewPokemonSource::
 ; first entry
-	db DONPHAN ; species
-	
-	db BERSERK_GENE ; item
-	
+	db MACHAMP ; species
+
+	db BLACKBELT ; item
+
 	; moves
-	db DOUBLE_EDGE
+	db CROSS_CHOP
+	db ROCK_SLIDE
 	db EARTHQUAKE
-	db REST
-	db SLEEP_TALK
+	db HIDDEN_POWER ; bug
 	
 	; dvs
-	dn 15, 10, 10, 10
-	
-	; pp (irrelevant)
-	db 4, 20, 6, 9
+	dn 13, 13, 15, 15
+
+	; pp (only for PP Ups)
+	db 255, 255, 255, 255
 
 	; happiness
 	db 255
 	; level
-	db 60
+	db 100
 
 ; second entry
-	db BULBASAUR ; species
+	db OCTILLERY ; species
 
-	db MASTER_BALL ; item
-
-	; moves
-	db POUND
-	db POUND
-	db POUND
-	db POUND
-
-	; dvs
-	dn 1, 1, 1, 1
-
-	; pp (irrelevant)
-	db 1, 1, 1, 1
-
-	; happiness
-	db 1
-	; level
-	db 1
-; third entry
-; ultimate(-ish) HM slave
-	db MEW ; species
-
-	db NO_ITEM ; item
+	db MYSTIC_WATER ; item
 
 	; moves
-	db FLY
+	db FLAMETHROWER
 	db SURF
-	db STRENGTH
-	db CUT
+	db RETURN
+	db ICE_BEAM
 
 	; dvs
 	dn 15, 15, 15, 15
 
-	; pp (irrelevant)
+	; pp (only for PP Ups)
+	db 255, 255, 255, 255
+
+	; happiness
+	db 255
+	; level
+	db 100
+; third entry
+; ultimate(-ish) HM slave
+	db RAICHU ; species
+
+	db MAGNET ; item
+
+	; moves
+	db THUNDERBOLT
+	db SURF
+	db THUNDER_WAVE
+	db SEISMIC_TOSS
+
+	; dvs
+	dn 15, 15, 15, 15
+
+	; pp (only for PP Ups)
+	db 255, 255, 255, 255
+
+	; happiness
+	db 255
+	; level
+	db 100
+; fourth entry
+	db PIDGEOT ; species
+
+	db POLKADOT_BOW ; item
+
+	; moves
+	db RETURN
+	db FLY
+	db STEEL_WING
+	db HIDDEN_POWER ; ground
+
+	; dvs
+	dn 12, 15, 15, 15
+
+	; pp (only for PP Ups)
+	db 255, 255, 255, 255
+
+	; happiness
+	db 255
+	; level
+	db 100
+
+; fifth entry
+	db HOUNDOOM ; species
+
+	db CHARCOAL ; item
+
+	; moves
+	db FLAMETHROWER
+	db CRUNCH
+	db SUNNY_DAY
+	db SOLARBEAM
+
+	; dvs
+	dn 15, 15, 15, 15
+
+	; pp (only for PP Ups)
+	db 255, 255, 255, 255
+
+	; happiness
+	db 255
+	; level
+	db 100
+
+; sixth entry
+	db NIDOKING ; species
+
+	db SOFT_SAND ; item
+
+	; moves
+	db EARTHQUAKE
+	db LOVELY_KISS
+	db ICE_BEAM
+	db THUNDERBOLT
+
+	; dvs
+	dn 15, 15, 15, 15
+
+	; pp (only for PP Ups)
 	db 255, 255, 255, 255
 
 	; happiness
