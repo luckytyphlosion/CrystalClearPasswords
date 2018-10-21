@@ -87,6 +87,7 @@ SECTION "New Passwords", ROMX[$78e4], BANK[$13]
 ; indices above $e0 don't set an event flag
 ; but are probably buggy due to messy comparisons
 ; enough space for 79 pokemon
+; also, indices 1 through 6 inclusive will allow inscribing a trophy for PIGYournament winners
 
 NewPasswords::
 	; 16 -> 58913? I wonder what could this mean...
@@ -249,3 +250,29 @@ NewPokemonSource::
 	db 255
 	; level
 	db 100
+
+; Note to ShockSlayer:
+; Unrelated to this patch, but you do not need
+; to use a text_jump for text in the same bank.
+; All you need to do is use the "text" macro.
+; Example:
+; SampleText:
+;     text_jump .ThisIsAUselessJump
+;     db "@"
+; .ThisIsAUselessJump:
+;     text "Sample Text"
+;     done
+; This should be converted to:
+; SampleText:
+;     text "Sample Text"
+;     done
+
+; These two patches remove the jump that redirects script execution
+; to sample trophy text.
+SECTION "Patch Dummied Gold Trophy Jump", ROMX[$6ed8], BANK[$9]
+	dw @ + 2 ; jump 2 ahead to actual trophy winner code
+
+SECTION "Patch Dummied Silver Trophy Jump", ROMX[$6f03], BANK[$9]
+	dw @ + 2 ; jump 2 ahead to actual trophy winner code
+
+
